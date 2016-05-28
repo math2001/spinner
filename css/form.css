@@ -1,0 +1,25 @@
+form {
+	text-align: center;
+}
+input[type=text],
+input[type=password] {
+	width: 200px;
+	margin: 0 auto;
+	background: none;
+	border: none;
+	border-bottom: 2px solid #ccc;
+	font-family: "Monaco";
+	color: #ddd;
+}
+input[type=submit] {
+	border: none;
+	background: none;
+	color: #ccc;
+	font-size: 100%;
+	background-color: rgba(255, 255, 255, 0.05);
+	padding: 10px;
+	cursor: pointer;
+}
+input[type=submit]:hover {
+	background-color: rgba(255, 255, 255, 0.1);
+}
