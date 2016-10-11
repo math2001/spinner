@@ -1,4 +1,4 @@
-function Point(color, opposite, $element) {
+function Point(opposite, $element) {
 
 	this.render = function () {
 		this.$.css('left', this.x - this.width / 2)
@@ -84,26 +84,27 @@ function Point(color, opposite, $element) {
 			}
 		}
 		return false;
-
 	}
 
 	this.reset = function () {
 		this.angle = this.defaultAngle
 		this.spin(false)
 		this.rnd_color()
+		return this
 	}
 
 	this.rnd_color = function () {
-		if (obj_settings.chpt) {
+		if (window.settings.changePoint) {
 			this.$.css('background-color', 'rgb(' + rnd(0, 255) + ', ' + rnd(0, 255) + ', ' + rnd(0, 255) + ')')
 		} else if (opposite) {
 			this.$.css('background-color', '#008aff')
 		} else {
 			this.$.css('background-color', '#f00')
 		}
+		return this
 	}
 
-	// x and x are the center of the point
+	// x and y are the center of the point
 
 	this.width = this.height = 20
 	this.radius = radius

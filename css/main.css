@@ -8,273 +8,6 @@ body {
 	outline: none;
 }
 
-#topbar {
-	position: absolute;
-	background-color: #252525;
-	color: #ddd;
-	height: 40px;
-	line-height: 40px;
-	width: 100%;
-	text-align: center;
-	z-index: 50;
-}
-
-#game, #menu, #lose, #settings {
-	background: #555;
-	width: 300px;
-	height: 500px;
-	margin: auto;
-	position: relative;
-	z-index: 100;
-}
-
-#game {
-	overflow: hidden;
-	transition-property: background;
-	transition-duration: .1s;
-}
-
-#debug {
-	font-family: Monaco;
-	padding: 10px;
-	margin: 0 5px;
-	margin-bottom: 15px;
-	border-bottom: 1px solid #aaa;
-}
-
-#blue, #red {
-	display: block;
-	width: 20px;
-	height: 20px;
-	/*background-color: #f00;*/
-	position: absolute;
-	transition-property: background;
-	transition-duration: .5s;
-}
-
-
-
-#blue {
-	right: 0;
-}
-
-.wall {
-	background-color: #ccc;
-	display: block;
-	position: absolute;
-	transition: background-color .1s;
-}
-
-#menu, #lose, #settings {
-	color: white;
-	background-color: rgba(15, 15, 15, 0.9);
-}
-
-/* ------------------------------ */
-/* ------------ menu ------------ */
-/* ------------------------------ */
-
-#menu ul {
-	list-style: none;
-	padding: 0;
-	text-align: center;
-	margin: 0;
-	line-height: 50px;
-	height: 100%;
-}
-
-
-
-#menu button,
-#menu li {
-	background: none;
-	border: none;
-	color: #ccc;
-	font-size: 130%;
-	font-family: 'Open Sans', sans-serif;
-	position: relative;
-	cursor: default;
-}
-
-#menu li {
-	height: 166px;
-	line-height: 166px;
-	border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-#menu li:last-of-type {
-	border-bottom: none;
-}
-
-
-#menu button {
-	height: 100%;
-	width: 100%;
-	cursor: pointer;
-	position: relative;
-}
-#menu button::before {
-	display: block;
-	position: absolute;
-	content: "";
-	height: 100%;
-	background: rgba(255, 255, 255, 0.1);
-	transition: all .3s;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	opacity: 0;
-}
-
-#menu button:hover::before {
-	opacity: 1;
-	transition: all .3s;
-}
-
-/* ------------------------------ */
-/* ------------ lose ------------ */
-/* ------------------------------ */
-
-#lose {
-	line-height: 1;
-	text-align: center;
-	font-size: 200%;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	cursor: default;
-}
-#lose p {
-	margin: 20px 0;
-}
-#lose p:first-child {
-	margin-top: 150px;
-}
-#lose button,
-#settings button {
-	border: none;
-	background: none;
-	font-size: 60%;
-	color: #ddd;
-	margin: 0;
-	cursor: pointer;
-	border-radius: 5px;
-	padding: 5px;
-	transition: all .2s;
-}
-
-#lose button:hover,
-#settings button:hover {
-	background-color: rgba(255, 255, 255, 0.1);
-	transition: all .2s;
-}
-
-
-#score {
-	font-family: 'consolas';
-}
-
-/* ---------------------------------- */
-/* ------------ settings ------------ */
-/* ---------------------------------- */
-
-#settings {
-	font-size: 120%;
-	border: 1px solid transparent;
-	box-sizing: border-box;
-	position: absolute;
-	top: 0;
-}
-#settings h3 {
-	text-align: center;
-}
-
-#settings p:last-of-type {
-	position: absolute;
-	bottom: 0;
-	margin: 0;
-	width: 100%;
-}
-#settings p:last-of-type button {
-	font-size: 90%;
-	width: 100%;
-	border-radius: 0;
-	padding: 10px 0;
-}
-
-
-
-/* -------------------------------- */
-/* ------------ global ------------ */
-/* -------------------------------- */
-
-input[type=checkbox] {
-	position: absolute;
-	left: -100%;
-	top: -100%;
-	opacity: 0;
-	width: 0;
-	height: 0;
-}
-.mycheckbox {
-	vertical-align: middle;
-	display: inline-block;
-	width: 15px;
-	height: 15px;
-	border: 3px solid #aaa;
-	margin-left: 5px;
-	margin-top: -5px;
-	border-radius: 3px;
-	/*background-image: linear-gradient(to top, rgba(100, 100, 100, 0.2), rgba(255, 255, 255, 0.2));*/
-}
-label {
-	cursor: pointer;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	-o-user-select: none;
-	user-select: none;
-}
-.mycheckbox::after {
-	content: "";
-	display: block;
-	width: 0;
-	height: 0;
-	border-right: 5px solid #fff;
-	border-bottom: 5px solid #fff;
-	border-radius: 3px;
-	border-color: transparent;
-	transform: rotate(45deg);
-	margin-top: -7px;
-	margin-left: 3px;
-	transition: all .3s;
-}
-input[type=checkbox]:checked + .mycheckbox::after {
-	border-color: #ddd;
-	width: 7px;
-	height: 15px;
-	transition: all .3s;
-}
-
-.mycheckbox.small {
-	border-width: 2px;
-	width: 10px;
-	height: 10px;
-}
-.mycheckbox.small::after {
-	border-width: 2px;
-	margin-top: -5px;
-	margin-left: 4px;
-}
-input[type=checkbox]:checked + .mycheckbox.small::after {
-	border-color: #ddd;
-	width: 3px;
-	height: 11px;
-	transition: all .3s;
-}
-
 a {
 	color: #2682B9;
 	text-decoration: none;
@@ -287,3 +20,64 @@ a:hover {
 .show { display: block; }
 .center { text-align: center; }
 code { font-family: "Monaco", consolas; }
+
+button {
+	background: none;
+	border: none;
+	color: white;
+	font-size: 100%;
+	padding: 5px;
+	cursor: pointer;
+}
+button:hover {
+	background-color: rgba(255, 255, 255, 0.1);
+}
+
+p.center.bottom {
+	position: absolute;
+	bottom: 0;
+	display: block;
+	width: 100%;
+	margin: 0;
+	height: 50px;
+	border-top: 1px solid #aaa;
+}
+
+p.center.bottom button {
+	width: 100%;
+	height: 100%;
+}
+
+
+/* ------------------------------ */
+/* ------------ Game ------------ */
+/* ------------------------------ */
+#game {
+	width: 300px;
+	height: 500px;
+	background: #333;
+	margin: auto;
+	position: relative;
+	overflow: hidden; 
+}
+
+#red, #blue {
+	position: absolute;
+	width: 20px;
+	height: 20px;
+}
+.wall {
+	background-color: #ddd;
+	position: absolute; 
+}
+
+/* -------------------------------- */
+/* ------------ Topbar ------------ */
+/* -------------------------------- */
+#topbar {
+	background-color: #202020;
+	text-align: center;
+	height: 30px;
+	line-height: 30px;
+	z-index: 90;
+}

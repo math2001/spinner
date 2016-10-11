@@ -1,4 +1,4 @@
-function Wall() {
+function Wall(pos) {
 
 
 	this.info = function () {
@@ -24,7 +24,7 @@ function Wall() {
 	}
 
 	this.remove = function (trans) {
-		trans = typeof trans === "undefined" ? false : trans
+		var trans = typeof trans === "undefined" ? false : trans
 		if (trans) {
 			this.$.fadeOut(400, function () {
 				$(this).remove()
@@ -34,21 +34,27 @@ function Wall() {
 		}
 	}
 
+	var pos = typeof pos === "undefined" ? false : pos
+	if (pos) {
+		// choose the default pos
+		this.width = pos.width;
+		this.height = pos.height
+		this.left = pos.left
+	} else {
+		this.width = rnd(30, (radius * 2) - 40);
+		this.height = rnd(30, radius - 20);
+		this.left = rnd(0, window.width - this.width);
+	}
 	this.speed = 5
+	this.top = 0
 
 	this.color = '#ccc'
-
-	this.width = rnd(30, (radius * 2) - 40);
-	this.height = rnd(30, radius - 20);
-
-	this.left = rnd(0, window.width - this.width);
-	this.top  = 0
 	
 	$element = $('<div class="wall"></div>').css({
 		'width' : this.width, 
 		'height': this.height
 	})
-	if (obj_settings.chwl) {
+	if (window.settings.changeWall) {
 		$element.css('background-color', 'rgb(' + rnd(0, 255) + ', ' + rnd(0, 255) + ', ' + rnd(0, 255) + ')')
 	}
 	$game.append($element)

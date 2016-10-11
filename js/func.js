@@ -15,11 +15,12 @@ function rnd(min, max, integer) {
 }
 
 function debug() {
+	if (!window.$debug) window.$debug = $('#debug');
 	var html = '';
 	for (var i = 0; i < arguments.length; i++) {
 		html += arguments[i] + ' '
 	}
-	$debug.html(html)
+	window.$debug.html(html)
 }
 
 
@@ -49,3 +50,22 @@ Array.prototype.remove = function(index) {
 		}
 	}
 };
+
+function rgb(r, g, b) {
+	if (r == 'rnd' || r == 'random') {
+		r = rnd(0, 255);
+		g = rnd(0, 255);
+		b = rnd(0, 255);
+	}
+	return 'rgb(' + r + ', ' + b + ', ' + b + ')';
+}
+
+function rgba(r, g, b, a) {
+	if (r == 'rnd' || r == 'random') {
+		r = rnd(0, 255);
+		g = rnd(0, 255);
+		b = rnd(0, 255);
+		a = rnd(0, 1, false)
+	}
+	return 'rgb(' + r + ', ' + b + ', ' + b + ', ' + a + ')';
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/state.css">
+	<link rel="stylesheet" type="text/css" href="css/form.css">
+	<title>Spiner</title>
+</head>
+<body>
+	<div id="debug"></div>
+	<h1 class="center">SPINER</h1>
+		<div id="game">
+			<div id="topbar" class="hide">Score: <code class="score">0</code></div>
+			<div id="blue"></div>
+			<div id="red"></div>
+			<!-- Menu -->
+			<div id="menu" class="state show">
+				<ul>
+					<li><button type="button" class="go-infinite-mode">Infinite Mode</button></li>
+					<li><button type="button" class="go-level-panel">Level Mode</button></li>
+					<li><button type="button" class="go-settings">Settings</button></li>
+					<li>By Math2001</li>
+				</ul>
+			</div>
+			<!-- Lose -->
+			<div id="lose" class="state hide">
+				<h3 class="state--title">Game <b>OVER</b>!</h3>
+				<p class="center"><big>Score: <code class="score">0</code></big></p>
+				<p class="center" id="play"><button type="button" class="go-infinite-mode">Play <code>[space]</code></button></p>
+				<p class="center" id="try-again"><button type="button" class="try-again">Try again [space]</button></p>
+				<p class="center"><button type="button" class="go-menu">Menu <code>[escape]</code></button></p>
+			</div>
+			<!-- Settings -->
+			<div id="settings" class="state hide">
+				<h3 class="state--title">Settings</h3>
+				<p>
+					<label for="ch-bg"><input type="checkbox" id="ch-bg">
+					<span class="mycheckbox"></span> Changing background</label>
+				</p>
+				<p>
+					<label for="ch-wl"><input type="checkbox" id="ch-wl">
+					<span class="mycheckbox"></span> Changing wall</label>
+					</p>
+				<p>
+					<label for="ch-pt"><input type="checkbox" id="ch-pt">
+					<span class="mycheckbox"></span> Changing point</label>
+				</p>
+				<p class="center bottom">
+					<button type="button" class="go-menu">Done!</button>
+				</p>
+			</div>
+			<!-- Levels Panel -->
+			<div id="level-panel" class="state hide">
+				<p class="center bottom">
+					<button type="button" class="go-menu">Back to menu</button>
+				</p>
+			</div>
+			<!-- Win -->
+			<div id="win" class="state hide">
+				<h3 class="state--title">Win!</h3>
+				<p class="center"><big>Yes! you just unlock the next level!</big
+				></p>
+				<p class="center"><button type="button" class="go-next-level">Try it now! <code>[space]</code></button></p>
+				<p class="center"><button type="button" class="go-menu">Back to the menu <code>[Escape]</code></button></p>
+			</div>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<script type="text/javascript" src="js/func.js"></script>
+		<script type="text/javascript" src="js/game-func.js"></script>
+		<script type="text/javascript" src="js/score.js"></script>
+		<script type="text/javascript" src="js/time.js"></script>
+		<script type="text/javascript" src="js/point.js"></script>
+		<script type="text/javascript" src="js/wall.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>
