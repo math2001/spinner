@@ -1,0 +1,91 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #333;
+  color: #fff;
+  font-family: monaco;
+}
+* {
+  outline: none;
+}
+.nav {
+  display: none;
+}
+.nav * {
+  display: inline-block;
+}
+.main {
+  position: relative;
+  width: 300px;
+  height: 500px;
+  background-color: #222;
+  margin: auto;
+}
+.main .panel {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: block;
+  top: -100%;
+}
+.main .panel[active] {
+  top: 0;
+}
+.main .panel[data-name=game] {
+  overflow: hidden;
+}
+.main .panel[data-name=menu] ul {
+  padding: 0;
+  list-style: none;
+  margin: 0;
+  height: 100%;
+}
+.main .panel[data-name=menu] ul li {
+  height: 33.33333333333334%;
+  display: block;
+  position: relative;
+  display: table;
+  width: 100%;
+}
+.main .panel[data-name=menu] ul li:not(:last-of-type) {
+  border-bottom: 1px solid #aaa;
+}
+.main .panel[data-name=menu] ul li button,
+.main .panel[data-name=menu] ul li span {
+  padding: 0;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 100%;
+  font-family: monaco;
+  width: 100%;
+  text-align: center;
+  height: 100%;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+.main .panel[data-name=menu] ul li button:hover,
+.main .panel[data-name=menu] ul li button:active,
+.main .panel[data-name=menu] ul li button:focus {
+  background-color: rgba(221,221,221,0.133);
+}
+.point {
+  width: 30px;
+  height: 30px;
+  display: block;
+  position: absolute;
+}
+.point.blue {
+  background-color: #008aff;
+}
+.point.red {
+  background-color: #f00;
+}
+.wall {
+  background-color: #aaa;
+  position: absolute;
+}

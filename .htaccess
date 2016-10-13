@@ -1,5 +1,0 @@
-RewriteEngine on
-
-DirectoryIndex spiner.php
-
-RewriteRule ^spiner$ spiner.php

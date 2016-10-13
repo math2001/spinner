@@ -1,65 +1,42 @@
-function Wall(pos) {
+var Wall;
 
+Wall = (function() {
+  function Wall() {
+    this.speed = 5;
+    this.width = rnd(20, 80);
+    this.height = rnd(20, 80);
+    this.x = rnd(0, Game.width - this.width);
+    this.y = 0;
+    this.$ = $('<div class="wall"></div>').css({
+      width: this.width,
+      height: this.height,
+      left: this.x,
+      top: 0
+    });
+    Game.$game.append(this.$);
+  }
 
-	this.info = function () {
-		console.log('width:', this.width);
-		console.log('height:', this.height)
-		console.log('left:', this.left)
-		console.log('top:', this.top)
-	}
+  Wall.prototype.update = function() {
+    this.y += this.speed;
+    return this;
+  };
 
-	this.move = function () {
-		this.top += this.speed
-		return this.top > height
-	}
+  Wall.prototype.render = function() {
+    return this.$.css({
+      left: this.x,
+      top: this.y
+    });
+  };
 
-	this.render = function () {
-		this.$.css('left', this.left)
-		this.$.css('top', this.top)	
+  Wall.prototype.isOut = function() {
+    return this.y > Game.height;
+  };
 
-		return this
+  Wall.prototype.remove = function() {
+    this.$.remove();
+    return this;
+  };
 
-		// this.c.fillStyle = this.color
-		// this.c.fillRect(this.left, this.top, this.width, this.height)
-	}
+  return Wall;
 
-	this.remove = function (trans) {
-		var trans = typeof trans === "undefined" ? false : trans
-		if (trans) {
-			this.$.fadeOut(400, function () {
-				$(this).remove()
-			})
-		} else {
-			this.$.remove()
-		}
-	}
-
-	var pos = typeof pos === "undefined" ? false : pos
-	if (pos) {
-		// choose the default pos
-		this.width = pos.width;
-		this.height = pos.height
-		this.left = pos.left
-	} else {
-		this.width = rnd(30, (radius * 2) - 40);
-		this.height = rnd(30, radius - 20);
-		this.left = rnd(0, window.width - this.width);
-	}
-	this.speed = 5
-	this.top = 0
-
-	this.color = '#ccc'
-	
-	$element = $('<div class="wall"></div>').css({
-		'width' : this.width, 
-		'height': this.height
-	})
-	if (window.settings.changeWall) {
-		$element.css('background-color', 'rgb(' + rnd(0, 255) + ', ' + rnd(0, 255) + ', ' + rnd(0, 255) + ')')
-	}
-	$game.append($element)
-	this.$ = $element
-
-
-}
-
+})();
