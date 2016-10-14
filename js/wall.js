@@ -1,7 +1,7 @@
 var Wall;
 
 Wall = (function() {
-  function Wall() {
+  function Wall(rndColor) {
     this.speed = 5;
     this.width = rnd(20, 80);
     this.height = rnd(20, 80);
@@ -14,6 +14,9 @@ Wall = (function() {
       top: 0
     });
     Game.$game.append(this.$);
+    if (rndColor) {
+      this.$.css('background-color', randomColor());
+    }
   }
 
   Wall.prototype.update = function() {

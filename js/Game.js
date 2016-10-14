@@ -24,7 +24,8 @@ Game = (function() {
   };
 
   Game.bindDOM = function() {
-    return $(document.body).bind('keydown', this.keydown.bind(this)).bind('keyup', this.keyup.bind(this));
+    $(document.body).bind('keydown', this.keydown.bind(this)).bind('keyup', this.keyup.bind(this));
+    return this.$settings.find('input').bind('change', this.updateSettings);
   };
 
   Game.unbindDOM = function() {
@@ -46,7 +47,17 @@ Game = (function() {
     this.width = 300;
     this.height = 500;
     this.walls = [];
-    return this.bindDOM();
+    this.bindDOM();
+    return Settings.init();
+  };
+
+  Game.resetSetting = function(setting) {
+    switch (setting) {
+      case 'bg':
+        return this.$game.css('background-color', '');
+      case 'point':
+        return Points.resetColor();
+    }
   };
 
   Game.play = function() {
@@ -86,12 +97,17 @@ Game = (function() {
           this.walls[i] = null;
           wall.remove();
           Score.add().render();
-        } else {
-          wall.render();
+          if (Settings.bg) {
+            this.$game.css('background-color', randomColor());
+          }
+          if (Settings.point) {
+            Points.changeColor();
+          }
         }
+        wall.render();
       }
       if (this.walls.get(-1).y > this.pxToWaitBeforeAdding) {
-        this.walls.push(new Wall());
+        this.walls.push(new Wall(Settings.wall));
       }
       this.walls.remove(null);
       if (!this.events.stop) {

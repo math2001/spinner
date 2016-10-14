@@ -3,6 +3,11 @@ var Point, Points;
 Points = (function() {
   function Points() {}
 
+
+  /*
+  		This is just a helper. Most of the time, each action is called on both points, so this is what this class does.
+   */
+
   Points.init = function() {
     this.radius = 70;
     this.red = new Point($('.point.red'), this.radius, 'red', false).spin().render();
@@ -24,6 +29,16 @@ Points = (function() {
     this.red.spin(way);
     this.blue.spin(way);
     return this;
+  };
+
+  Points.changeColor = function() {
+    this.red.changeColor();
+    return this.blue.changeColor();
+  };
+
+  Points.resetColor = function() {
+    this.red.resetColor();
+    return this.blue.resetColor();
   };
 
   return Points;
@@ -72,6 +87,14 @@ Point = (function() {
 
   Point.prototype.checkCollide = function(wall) {
     return ((this.x >= wall.x && this.x < wall.x + wall.width) || (wall.x >= this.x && wall.x < this.x + this.width)) && ((this.y >= wall.y && this.y < wall.y + wall.height) || (wall.y >= this.y && wall.y < this.y + this.height));
+  };
+
+  Point.prototype.changeColor = function() {
+    return this.$.css('background-color', randomColor());
+  };
+
+  Point.prototype.resetColor = function() {
+    return this.$.css('background-color', '');
   };
 
   return Point;

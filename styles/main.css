@@ -111,6 +111,13 @@ button.bottom:hover {
 .main .panel[data-name=menu] ul li button:focus {
   background-color: rgba(221,221,221,0.133);
 }
+.main .panel[data-name=settings] .reset-btn {
+  width: 25px;
+  height: 25px;
+  vertical-align: bottom;
+  float: right;
+  cursor: pointer;
+}
 .point {
   width: 30px;
   height: 30px;

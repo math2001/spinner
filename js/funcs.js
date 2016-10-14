@@ -1,4 +1,4 @@
-var all, any, code, copyObject, copyText, forEach, globMatch, keys, log, openInNewTab, percentage, rnd;
+var all, any, bool, code, copyObject, copyText, forEach, globMatch, keys, log, openInNewTab, percentage, randomColor, rnd, round;
 
 percentage = function(per, value) {
   return (per / 100) * value;
@@ -248,4 +248,28 @@ keys = {
   left: 39,
   right: 37,
   escape: 27
+};
+
+round = function(number, precision) {
+  var factor, roundedTempNumber;
+  factor = Math.pow(10, precision);
+  return roundedTempNumber = Math.round(number * factor) / factor;
+};
+
+randomColor = function(alpha) {
+  var colors;
+  if (alpha == null) {
+    alpha = false;
+  }
+  colors = [rnd(0, 255), rnd(0, 255), rnd(0, 255)];
+  if (alpha) {
+    colors.push(round(rnd(0, 1, false), 2));
+  }
+  colors = '(' + colors.join(', ') + ')';
+  colors = 'rgb' + (alpha ? 'a' : '') + colors;
+  return colors;
+};
+
+bool = function(el) {
+  return !!el;
 };

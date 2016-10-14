@@ -15,10 +15,13 @@ class Game
 		else
 			# pass
 
+
 	@bindDOM: ->		
 		$(document.body)
 			.bind('keydown', @keydown.bind(@))
 			.bind('keyup', @keyup.bind(@))
+
+		@$settings.find('input').bind('change', @updateSettings)
 
 	@unbindDOM: ->
 		$(document.body).unbind('keydown', @keydown).unbind('keyup', @keyup)
@@ -42,6 +45,18 @@ class Game
 		@walls = []
 
 		@bindDOM()
+
+		Settings.init()
+
+	@resetSetting: (setting) ->
+		switch setting
+			when 'bg'
+				@$game.css('background-color', '')
+			when 'point'
+				Points.resetColor()
+				
+
+		
 
 		
 	@play: ->
@@ -82,12 +97,18 @@ class Game
 					@walls[i] = null
 					wall.remove()
 					Score.add().render()
-				else
-					wall.render()
+					if Settings.bg
+						@$game.css('background-color', randomColor())
+					if Settings.point
+						Points.changeColor()
+				wall.render()
 
 			# add a wall
 			if @walls.get(-1).y > @pxToWaitBeforeAdding
-				@walls.push(new Wall())
+				@walls.push(new Wall(Settings.wall))
+
+				
+
 
 			@walls.remove(null)
 

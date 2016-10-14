@@ -171,4 +171,17 @@ keys =
 	left: 39
 	right: 37
 	escape: 27
-	
+
+round = (number, precision) ->
+    factor = Math.pow(10, precision)
+    roundedTempNumber = Math.round(number * factor) / factor
+
+randomColor = (alpha=false)->
+	colors = [rnd(0, 255), rnd(0, 255), rnd(0, 255)]
+	colors.push round(rnd(0, 1, false), 2) if alpha
+	colors = '(' + colors.join(', ') + ')'
+	colors = 'rgb' + (if alpha then 'a' else '') + colors
+	colors
+
+bool = (el) ->
+	return not not el

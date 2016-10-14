@@ -1,8 +1,10 @@
 class Points
 
-	@init: ->
-		# [@$blue, @$red] = [$('.point.blue'), $('.point.red')]
+	###
+		This is just a helper. Most of the time, each action is called on both points, so this is what this class does.
+	###
 
+	@init: ->
 		@radius = 70
 
 		# calling spin withou any arguments makes the points get placed without being moved
@@ -24,6 +26,15 @@ class Points
 		@red.spin(way)
 		@blue.spin(way)
 		@
+
+	@changeColor: ->
+		@red.changeColor()
+		@blue.changeColor()
+
+	@resetColor: ->
+		@red.resetColor()
+		@blue.resetColor()
+
 
 
 class Point
@@ -75,3 +86,9 @@ class Point
 			(@y >= wall.y and @y < wall.y + wall.height) or
 			(wall.y >= @y and wall.y < @y + @height)
 		)
+
+	changeColor: ->
+		@$.css('background-color', randomColor())
+
+	resetColor: ->
+		@$.css('background-color', '')
