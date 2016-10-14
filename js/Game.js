@@ -33,60 +33,84 @@ Game = (function() {
 
   Game.gameOver = function() {
     this.events.stop = true;
-    this.unbindDOM();
-    log(this.$gameOver);
     return this.$gameOver.attr('active', '');
   };
 
   Game.init = function() {
     this.$main = $('.main');
     this.$game = this.$main.find('[data-name=game]');
-    this.$gameOver = this.$main.find('[data-name=menu]');
+    this.$gameOver = this.$main.find('[data-name=gameover]');
+    this.$menu = this.$main.find('[data-name=menu]');
+    this.$settings = this.$main.find('[data-name=settings]');
     this.pxToWaitBeforeAdding = 200;
     this.width = 300;
-    return this.height = 500;
+    this.height = 500;
+    this.walls = [];
+    return this.bindDOM();
   };
 
-  Game.run = function() {
-    var mainLoop;
+  Game.play = function() {
+    var j, len, mainLoop, ref, wall;
+    ref = this.walls;
+    for (j = 0, len = ref.length; j < len; j++) {
+      wall = ref[j];
+      wall.remove();
+    }
+    this.$gameOver.removeAttr('active');
+    this.$menu.removeAttr('active');
+    this.$settings.removeAttr('active');
+    this.$game.attr('active', '');
+    Score.reset().render();
     this.walls = [new Wall()];
     this.events = {
       left: false,
       right: false,
       stop: false
     };
-    this.bindDOM();
     Points.init();
     mainLoop = function() {
-      var i, j, len, ref, wall;
-      ref = this.walls;
-      for (i = j = 0, len = ref.length; j < len; i = ++j) {
-        wall = ref[i];
-        wall.update();
-        if (Points.checkCollide(wall)) {
-          this.gameOver();
-        }
-        if (wall.isOut()) {
-          this.walls[i] = null;
-          wall.remove();
-        }
-        wall.render();
-      }
-      if (this.walls.get(-1).y > this.pxToWaitBeforeAdding) {
-        this.walls.push(new Wall());
-      }
-      this.walls.remove(null);
+      var i, k, len1, ref1;
       if (this.events.left) {
         Points.spin("left").render();
       }
       if (this.events.right) {
         Points.spin("right").render();
       }
+      ref1 = this.walls;
+      for (i = k = 0, len1 = ref1.length; k < len1; i = ++k) {
+        wall = ref1[i];
+        wall.update();
+        if (Points.checkCollide(wall)) {
+          this.gameOver();
+        } else if (wall.isOut()) {
+          this.walls[i] = null;
+          wall.remove();
+          Score.add().render();
+        } else {
+          wall.render();
+        }
+      }
+      if (this.walls.get(-1).y > this.pxToWaitBeforeAdding) {
+        this.walls.push(new Wall());
+      }
+      this.walls.remove(null);
       if (!this.events.stop) {
-        return setTimeout(mainLoop.bind(this), 15);
+        return setTimeout(mainLoop.bind(this), 20);
       }
     };
     return mainLoop.bind(this)();
+  };
+
+  Game.settings = function() {
+    this.$settings.attr('active', '');
+    this.$gameOver.removeAttr('active');
+    return this.$menu.removeAttr('active');
+  };
+
+  Game.menu = function() {
+    this.$gameOver.removeAttr('active');
+    this.$settings.removeAttr('active');
+    return this.$menu.attr('active', '');
   };
 
   return Game;

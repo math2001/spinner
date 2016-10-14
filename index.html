@@ -12,11 +12,12 @@
 		<a href="http://github.com/math2001/spiner">See on github</a>
 	</div>
 	<div class="main">
-		<div class="panel" data-name="game" active>
+		<div class="panel" data-name="game">
+			<div class="score-bar">Score: <span class="score"></span></div>
 			<div class="point blue"></div>
 			<div class="point red"></div>
 		</div>
-		<div class="panel" data-name="menu">
+		<div class="panel" data-name="menu" active>
 			<ul>
 				<li><button onclick="Game.play()">Play</button></li>
 				<li><button onclick="Game.settings()">Settings</button></li>
@@ -24,16 +25,27 @@
 			</ul>
 		</div>
 		<div class="panel" data-name="gameover">
-			<h3>Game over!</h3>
+			<h2>Game over!</h2>
+			<h3>Score: <span class="score"></span></h3>
 			<ul>
-				<li>Try again</li>
-				<li>Menu</li>
+				<li><button onclick="Game.play()">Try again</button></li>
+				<li><button onclick="Game.menu()">Menu</button></li>
 			</ul>
+		</div>
+		<div class="panel" data-name="settings">
+			<h2>Settings</h2>
+			<div style="padding: 10px;">
+				<p><input type="checkbox" id="setting-point"><label for="setting-point"><span data-type="checkbox"></span> Points</label></p>
+				<p><input type="checkbox" id="setting-wall"><label for="setting-wall"><span data-type="checkbox"></span> Wall</label></p>
+				<p><input type="checkbox" id="setting-bg"><label for="setting-bg"><span data-type="checkbox"></span> Background</label></p>
+			</div>
+			<button class="bottom" onclick="Game.menu()">Done!</button>
 		</div>
 	</div>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<script type="text/javascript" src="./js/funcs.js"></script>
+	<script type="text/javascript" src="./js/Score.js"></script>
 	<script type="text/javascript" src="./js/Points.js"></script>
 	<script type="text/javascript" src="./js/Wall.js"></script>
 	<script type="text/javascript" src="./js/Game.js"></script>

@@ -1,6 +1,6 @@
 main = ->
 
 	Game.init()
-	Game.run()
+	Score.init()
 
 $(window).ready(main)

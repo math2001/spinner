@@ -2,7 +2,7 @@ var main;
 
 main = function() {
   Game.init();
-  return Game.run();
+  return Score.init();
 };
 
 $(window).ready(main);

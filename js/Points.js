@@ -12,7 +12,8 @@ Points = (function() {
 
   Points.render = function() {
     this.red.render();
-    return this.blue.render();
+    this.blue.render();
+    return this;
   };
 
   Points.checkCollide = function(wall) {
@@ -41,7 +42,7 @@ Point = (function() {
     }
     this.angle = this.defaultAngle;
     this.width = this.height = 20;
-    this.spinCenter = [percentage(50, Game.width), Game.height - this.radius - (this.width / 2) - 20];
+    this.spinCenter = [percentage(50, Game.width), Game.height - this.radius - 20];
     this.angleSpeed = 0.1;
     this.$.css({
       width: this.width,
@@ -64,8 +65,8 @@ Point = (function() {
   };
 
   Point.prototype.render = function() {
-    this.$.css('left', this.x - this.width / 2);
-    this.$.css('top', this.y - this.height / 2);
+    this.$.css('left', this.x);
+    this.$.css('top', this.y);
     return this;
   };
 

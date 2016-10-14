@@ -10,12 +10,31 @@ html {
 }
 * {
   outline: none;
+  box-sizing: border-box;
 }
 .nav {
   display: none;
 }
 .nav * {
   display: inline-block;
+}
+button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 100%;
+  font-family: monaco;
+  cursor: pointer;
+}
+button.bottom {
+  position: absolute;
+  border-top: 1px solid #aaa;
+  width: 100%;
+  bottom: 0;
+  padding: 10px;
+}
+button.bottom:hover {
+  background-color: rgba(0,0,0,0.333);
 }
 .main {
   position: relative;
@@ -25,17 +44,41 @@ html {
   margin: auto;
 }
 .main .panel {
+  transition-property: top, opacity;
+  transition-duration: 1s;
   position: absolute;
   height: 100%;
   width: 100%;
   display: block;
   top: -100%;
+  background-color: rgba(51,51,51,0.667);
+}
+.main .panel h3,
+.main .panel h2 {
+  text-align: center;
 }
 .main .panel[active] {
   top: 0;
+  z-index: 10;
 }
 .main .panel[data-name=game] {
   overflow: hidden;
+  z-index: 1;
+}
+.main .panel[data-name=gameover] ul {
+  list-style: none;
+  padding: 0;
+}
+.main .panel[data-name=gameover] ul li {
+  text-align: center;
+  margin: 20px 0;
+}
+.main .panel[data-name=gameover] ul li button {
+  border-radius: 5px;
+  padding: 5px;
+}
+.main .panel[data-name=gameover] ul li button:hover {
+  background-color: rgba(255,255,255,0.2);
 }
 .main .panel[data-name=menu] ul {
   padding: 0;
@@ -56,11 +99,6 @@ html {
 .main .panel[data-name=menu] ul li button,
 .main .panel[data-name=menu] ul li span {
   padding: 0;
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 100%;
-  font-family: monaco;
   width: 100%;
   text-align: center;
   height: 100%;
@@ -88,4 +126,50 @@ html {
 .wall {
   background-color: #aaa;
   position: absolute;
+}
+.score-bar {
+  position: absolute;
+  background-color: rgba(0,0,0,0.333);
+  padding: 5px 0;
+  width: 100%;
+  text-align: center;
+  z-index: 5;
+}
+input[type=checkbox] {
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  opacity: 0;
+}
+span[data-type="checkbox"] {
+  width: 20px;
+  text-align: center;
+  height: 20px;
+  display: inline-block;
+}
+span[data-type="checkbox"]::after {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 5px;
+  margin-left: 5px;
+  vertical-align: middle;
+  border: 2px solid #fff;
+  border-radius: 15px;
+  transform: rotate(0);
+  transition-property: border-radius, transform, width, height, margin-right, margin-left;
+  transition-duration: 0.5s;
+}
+input[type=checkbox]:checked + label span[data-type="checkbox"]::after {
+  content: "";
+  border-right: none;
+  border-top: none;
+  border-radius: 0;
+  transform: rotate(-45deg);
+  width: 15px;
+  height: 10px;
+  background-color: transparent;
+  margin-right: 2px;
+  margin-left: 0;
 }

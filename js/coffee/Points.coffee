@@ -15,6 +15,7 @@ class Points
 	@render: ->
 		@red.render()
 		@blue.render()
+		@
 
 	@checkCollide: (wall)->
 		@red.checkCollide(wall) or @blue.checkCollide(wall)
@@ -31,7 +32,10 @@ class Point
 		if opposite then @defaultAngle = 0 else @defaultAngle = -Math.PI
 		@angle = @defaultAngle
 		@width = @height = 20
-		@spinCenter = [percentage(50, Game.width), Game.height - @radius - (@width / 2) - 20]
+		@spinCenter = [
+			percentage(50, Game.width), 
+			Game.height - @radius - 20
+		]
 		@angleSpeed = 0.1
 
 
@@ -54,15 +58,20 @@ class Point
 		@
 
 	render: ->
-		@$.css('left', @x - @width / 2)
-		@$.css('top', @y - @height / 2)
+		@$.css('left', @x)
+		@$.css('top', @y)
 		@
 
 	checkCollide: (wall) ->
+
 		(
+			# x
+			# this.left > wall.left and this.left < wall.right
 			(@x >= wall.x and @x < wall.x + wall.width) or
+			# wall.left > this.left and wall.left < this.right
 			(wall.x >= @x and wall.x < @x + @width)
 			) and (
+			# y
 			(@y >= wall.y and @y < wall.y + wall.height) or
 			(wall.y >= @y and wall.y < @y + @height)
 		)

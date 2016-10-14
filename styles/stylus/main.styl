@@ -9,11 +9,30 @@ body, html
 
 *
 	outline none
+	box-sizing border-box
 
 .nav 
 	display none
 	*
 		display inline-block
+
+button
+	background none
+	border none
+	color white
+	font-size 100%
+	font-family monaco
+	cursor pointer
+	
+	&.bottom
+		position absolute
+		border-top 1px solid #aaa
+		width 100%
+		bottom 0
+		padding 10px
+		&:hover
+			background-color #0005
+		
 
 .main
 	position relative
@@ -24,15 +43,37 @@ body, html
 	
 
 	.panel
+		transition-property top, opacity
+		transition-duration 1s
 		position absolute
 		height 100%
 		width 100%
 		display block
 		top -100%
+		background-color #333a
+		
+		h3, h2
+			text-align center
+		
 		&[active]
 			top 0
+			z-index 10
 		&[data-name=game]
 			overflow hidden
+			z-index 1
+		&[data-name=gameover]
+			
+			ul
+				list-style none
+				padding 0
+				li
+					text-align center
+					margin 20px 0
+					button
+						border-radius 5px
+						padding 5px
+						&:hover
+							background-color #fff3
 		
 		&[data-name=menu]
 			ul
@@ -51,11 +92,7 @@ body, html
 					button
 					span
 						padding 0
-						background none
-						border none
-						color white
-						font-size 100%
-						font-family monaco
+						
 						width 100%
 						text-align center
 						height 100%
@@ -81,3 +118,52 @@ body, html
 .wall
 	background-color #aaa
 	position absolute
+
+.score-bar
+	position absolute
+	background-color #0005
+	padding 5px 0
+	width 100%
+	text-align center
+	z-index 5
+
+
+input[type=checkbox]
+	position absolute
+	top -100%
+	left -100%
+	opacity 0
+
+span[data-type="checkbox"]
+	width 20px
+	text-align center
+	height 20px
+	display inline-block
+
+span[data-type="checkbox"]::after
+	content ""
+	display inline-block
+	width 5px
+	height 5px
+	margin-right 5px
+	margin-left 5px
+	vertical-align middle
+	border 2px solid white
+	border-radius 15px
+	transform rotate(0)
+	transition-property border-radius, transform, width, height, margin-right, margin-left
+	transition-duration .5s
+
+input[type=checkbox]:checked
+	& + label
+		span[data-type="checkbox"]::after
+			content ""
+			border-right none
+			border-top none
+			border-radius 0
+			transform rotate(-45deg)
+			width 15px
+			height 10px
+			background-color transparent
+			margin-right 2px
+			margin-left 0
