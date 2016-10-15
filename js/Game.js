@@ -23,18 +23,34 @@ Game = (function() {
     }
   };
 
+  Game.mousedown = function(e) {
+    if (this.state !== 'game') {
+      return;
+    }
+    if (e.originalEvent.touches[0].pageX > document.body.clientWidth / 2) {
+      this.events.left = true;
+    } else {
+      this.events.right = true;
+    }
+    return false;
+  };
+
+  Game.mouseup = function() {
+    if (this.state !== 'game') {
+      return;
+    }
+    this.events.left = false;
+    this.events.right = false;
+    return false;
+  };
+
   Game.bindDOM = function() {
-    $(document.body).bind('keydown', this.keydown.bind(this)).bind('keyup', this.keyup.bind(this));
+    $(document.body).bind('keydown', this.keydown.bind(this)).bind('keyup', this.keyup.bind(this)).bind('touchstart', this.mousedown.bind(this)).bind('touchend', this.mouseup.bind(this));
     return this.$settings.find('input').bind('change', this.updateSettings);
   };
 
   Game.unbindDOM = function() {
     return $(document.body).unbind('keydown', this.keydown).unbind('keyup', this.keyup);
-  };
-
-  Game.gameOver = function() {
-    this.events.stop = true;
-    return this.$gameOver.attr('active', '');
   };
 
   Game.init = function() {
@@ -48,7 +64,13 @@ Game = (function() {
     this.height = 500;
     this.walls = [];
     this.bindDOM();
-    return Settings.init();
+    Settings.init();
+    this.state = 'menu';
+    return this.events = {
+      left: false,
+      right: false,
+      stop: false
+    };
   };
 
   Game.resetSetting = function(setting) {
@@ -62,6 +84,7 @@ Game = (function() {
 
   Game.play = function() {
     var j, len, mainLoop, ref, wall;
+    this.state = 'game';
     ref = this.walls;
     for (j = 0, len = ref.length; j < len; j++) {
       wall = ref[j];
@@ -120,13 +143,21 @@ Game = (function() {
   Game.settings = function() {
     this.$settings.attr('active', '');
     this.$gameOver.removeAttr('active');
-    return this.$menu.removeAttr('active');
+    this.$menu.removeAttr('active');
+    return this.state = 'settings';
   };
 
   Game.menu = function() {
     this.$gameOver.removeAttr('active');
     this.$settings.removeAttr('active');
-    return this.$menu.attr('active', '');
+    this.$menu.attr('active', '');
+    return this.state = 'menu';
+  };
+
+  Game.gameOver = function() {
+    this.state = 'gameover';
+    this.events.stop = true;
+    return this.$gameOver.attr('active', '');
   };
 
   return Game;
