@@ -75,6 +75,9 @@ class Game
 			stop: false
 		}
 
+		Points.init()
+
+
 	@resetSetting: (setting) ->
 		switch setting
 			when 'bg'
@@ -85,6 +88,8 @@ class Game
 
 		
 	@play: ->
+
+		Points.reset().render()
 
 		@state = 'game'
 
@@ -107,14 +112,18 @@ class Game
 		}
 
 
-		Points.init()
 
 		mainLoop = ->
-			if @events.left
-				Points.spin("left").render()
-			if @events.right
-				Points.spin("right").render()
-			
+			if @events.left and @events.right
+				Points.expand().render()
+			else
+				if @events.left
+					Points.spin("left").render()
+				if @events.right
+					Points.spin("right").render()
+				Points.unexpand()
+
+
 
 			for wall, i in @walls
 				wall.update()
@@ -134,11 +143,8 @@ class Game
 			if @walls.get(-1).y > @pxToWaitBeforeAdding
 				@walls.push(new Wall())
 
-				
-
 
 			@walls.remove(null)
-
 			
 
 			if not @events.stop

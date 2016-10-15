@@ -64,11 +64,12 @@ Game = (function() {
     this.bindDOM();
     Settings.init();
     this.state = 'menu';
-    return this.events = {
+    this.events = {
       left: false,
       right: false,
       stop: false
     };
+    return Points.init();
   };
 
   Game.resetSetting = function(setting) {
@@ -82,6 +83,7 @@ Game = (function() {
 
   Game.play = function() {
     var j, len, mainLoop, ref, wall;
+    Points.reset().render();
     this.state = 'game';
     ref = this.walls;
     for (j = 0, len = ref.length; j < len; j++) {
@@ -99,14 +101,18 @@ Game = (function() {
       right: false,
       stop: false
     };
-    Points.init();
     mainLoop = function() {
       var i, k, len1, ref1;
-      if (this.events.left) {
-        Points.spin("left").render();
-      }
-      if (this.events.right) {
-        Points.spin("right").render();
+      if (this.events.left && this.events.right) {
+        Points.expand().render();
+      } else {
+        if (this.events.left) {
+          Points.spin("left").render();
+        }
+        if (this.events.right) {
+          Points.spin("right").render();
+        }
+        Points.unexpand();
       }
       ref1 = this.walls;
       for (i = k = 0, len1 = ref1.length; k < len1; i = ++k) {

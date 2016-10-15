@@ -9,9 +9,11 @@ Points = (function() {
    */
 
   Points.init = function() {
-    this.radius = 70;
-    this.red = new Point($('.point.red'), this.radius, 'red', false).spin().render();
-    this.blue = new Point($('.point.blue'), this.radius, 'blue', true).spin().render();
+    this.normalRadius = 70;
+    this.expandedRadius = 90;
+    this.areExpaned = false;
+    this.red = new Point($('.point.red'), this.normalRadius, 'red', false).spin().render();
+    this.blue = new Point($('.point.blue'), this.normalRadius, 'blue', true).spin().render();
     return this;
   };
 
@@ -33,12 +35,43 @@ Points = (function() {
 
   Points.changeColor = function() {
     this.red.changeColor();
-    return this.blue.changeColor();
+    this.blue.changeColor();
+    return this;
   };
 
   Points.resetColor = function() {
     this.red.resetColor();
-    return this.blue.resetColor();
+    this.blue.resetColor();
+    return this;
+  };
+
+  Points.reset = function() {
+    this.blue.reset();
+    this.red.reset();
+    return this;
+  };
+
+  Points.expand = function() {
+    if (this.areExpaned) {
+      return this;
+    }
+    this.red.radius = this.blue.radius = this.expandedRadius;
+    this.red.spin();
+    this.blue.spin();
+    this.areExpaned = true;
+    return this;
+  };
+
+  Points.unexpand = function() {
+    if (!this.areExpaned) {
+      return this;
+    }
+    this.red.radius = this.blue.radius = this.normalRadius;
+    this.red.spin();
+    this.blue.spin();
+    this.render();
+    this.areExpaned = false;
+    return this;
   };
 
   return Points;
@@ -90,11 +123,19 @@ Point = (function() {
   };
 
   Point.prototype.changeColor = function() {
-    return this.$.css('background-color', randomColor());
+    this.$.css('background-color', randomColor());
+    return this;
   };
 
   Point.prototype.resetColor = function() {
-    return this.$.css('background-color', '');
+    this.$.css('background-color', '');
+    return this;
+  };
+
+  Point.prototype.reset = function() {
+    this.angle = this.defaultAngle;
+    this.spin();
+    return this;
   };
 
   return Point;

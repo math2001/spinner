@@ -5,11 +5,15 @@ class Points
 	###
 
 	@init: ->
-		@radius = 70
+		@normalRadius = 70
+		@expandedRadius = 90
 
-		# calling spin withou any arguments makes the points get placed without being moved
-		@red = new Point($('.point.red'), @radius, 'red', false).spin().render()
-		@blue = new Point($('.point.blue'), @radius, 'blue', true).spin().render()
+		@areExpaned = false
+
+
+		# calling spin without any arguments makes the points get placed without being moved
+		@red = new Point($('.point.red'), @normalRadius, 'red', false).spin().render()
+		@blue = new Point($('.point.blue'), @normalRadius, 'blue', true).spin().render()
 		@
 
 
@@ -30,10 +34,38 @@ class Points
 	@changeColor: ->
 		@red.changeColor()
 		@blue.changeColor()
+		@
 
 	@resetColor: ->
 		@red.resetColor()
 		@blue.resetColor()
+		@
+
+	@reset: ->
+		@blue.reset()
+		@red.reset()
+		@
+
+	@expand: ->
+		if @areExpaned
+			return @
+		@red.radius = @blue.radius = @expandedRadius
+		@red.spin()
+		@blue.spin()
+		@areExpaned = true
+		@
+
+	@unexpand: ->
+
+		if not @areExpaned
+			return @
+		@red.radius = @blue.radius = @normalRadius
+		@red.spin()
+		@blue.spin()
+		@render()
+		@areExpaned = false
+		@
+
 
 
 
@@ -53,7 +85,6 @@ class Point
 		@$.css({
 			width: @width
 			height: @height
-			# 'background-color': @color
 		})
 
 	spin: (way) ->
@@ -74,7 +105,6 @@ class Point
 		@
 
 	checkCollide: (wall) ->
-
 		(
 			# x
 			# this.left > wall.left and this.left < wall.right
@@ -89,6 +119,12 @@ class Point
 
 	changeColor: ->
 		@$.css('background-color', randomColor())
+		@
 
 	resetColor: ->
 		@$.css('background-color', '')
+		@
+	reset: ->
+		@angle = @defaultAngle
+		@spin()
+		@
