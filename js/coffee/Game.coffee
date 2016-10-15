@@ -7,13 +7,13 @@ class Game
 			@events.right = true
 		else if e.keyCode == keys.escape
 			@events.stop = true
+
 	@keyup: (e) ->
 		if e.keyCode == keys.left
 			@events.left = false
 		else if e.keyCode == keys.right
 			@events.right = false
-		else
-			# pass
+		
 
 	@mousedown: (e) ->
 		if @state != 'game'
@@ -132,7 +132,7 @@ class Game
 
 			# add a wall
 			if @walls.get(-1).y > @pxToWaitBeforeAdding
-				@walls.push(new Wall(Settings.wall))
+				@walls.push(new Wall())
 
 				
 

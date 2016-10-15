@@ -1,6 +1,6 @@
 class Wall
 
-	constructor: (rndColor) ->
+	constructor:  ->
 		@speed = 5
 		@width = rnd(20, 80)
 		@height = rnd(20, 80)
@@ -13,7 +13,7 @@ class Wall
 			top: 0
 		Game.$game.append(@$)
 
-		if rndColor
+		if Settings.wall
 			@$.css('background-color', randomColor())
 
 

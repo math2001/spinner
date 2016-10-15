@@ -18,8 +18,6 @@ Game = (function() {
       return this.events.left = false;
     } else if (e.keyCode === keys.right) {
       return this.events.right = false;
-    } else {
-
     }
   };
 
@@ -130,7 +128,7 @@ Game = (function() {
         wall.render();
       }
       if (this.walls.get(-1).y > this.pxToWaitBeforeAdding) {
-        this.walls.push(new Wall(Settings.wall));
+        this.walls.push(new Wall());
       }
       this.walls.remove(null);
       if (!this.events.stop) {
